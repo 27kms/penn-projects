@@ -30,3 +30,9 @@ The GitHub Actions workflow runs both checks using tools already present on the 
 ## Ownership and reuse
 
 Git commits for this import are attributed to `27kms`. The academic work includes course starter code, team deliverables, and cited third-party data. Their existing credits remain in place. This import does not assign a new license to the collection.
+
+## Validation scope
+
+The checker compares manifest source and destination paths with an independent fixed inventory in the script. It verifies imported bytes against the manifest and checks that change descriptions agree with its source and imported hashes. The manifest records provenance; it is not an independent authentication of the original files.
+
+All repository notebooks, including additions outside the import manifest, receive structure checks and checks for eight-digit values following a student-ID label and nonempty `grader_api_key` values. Local `.git`, `.venv`, and `venv` directories are excluded. Grading-key fields must be empty or use `null`, `None`, or `~`; runtime expressions are not supported in this static archive. These checks cover the known assignment fields, not every possible secret format.

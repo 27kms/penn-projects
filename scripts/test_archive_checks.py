@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from check_archive import EXPECTED_SOURCE_COUNT, check_archive
 
@@ -45,6 +46,8 @@ class ArchiveChecksTest(unittest.TestCase):
                 "bytes": len(content), "change": "Unchanged.",
             })
 
+        self.expected_paths = frozenset((entry["source_path"], entry["path"]) for entry in self.entries)
+
     def refresh_notebook(self):
         content = json.dumps(self.notebook).encode()
         (self.root / "notebook.ipynb").write_bytes(content)
@@ -58,7 +61,7 @@ class ArchiveChecksTest(unittest.TestCase):
     def result(self):
         (self.root / "docs/source-manifest.json").write_text(json.dumps({"files": self.entries}))
         stderr = io.StringIO()
-        with redirect_stdout(io.StringIO()), redirect_stderr(stderr):
+        with patch("check_archive.EXPECTED_SOURCE_PATHS", self.expected_paths), redirect_stdout(io.StringIO()), redirect_stderr(stderr):
             status = check_archive(self.root)
         return status, stderr.getvalue()
 
@@ -113,8 +116,8 @@ class ArchiveChecksTest(unittest.TestCase):
         self.refresh_notebook()
         self.assert_rejected("grading key")
 
-    def test_empty_keys_and_environment_lookup_are_allowed(self):
-        self.notebook["cells"][0]["source"] = "grader_api_key = os.environ['PENN_GRADER_KEY']"
+    def test_empty_and_null_keys_are_allowed(self):
+        self.notebook["cells"][0]["source"] = "grader_api_key = None\ngrader_api_key: null\ngrader_api_key = ''"
         self.notebook["cells"][0]["outputs"] = [{
             "output_type": "stream", "name": "stdout", "text": "grader_api_key: ''\n",
         }]
@@ -144,6 +147,37 @@ class ArchiveChecksTest(unittest.TestCase):
     def test_duplicate_source_path(self):
         self.entries[1]["source_path"] = self.entries[0]["source_path"]
         self.assert_rejected("Duplicate source path")
+
+    def test_same_count_replacement(self):
+        entry = self.entries[-1]
+        (self.root / entry["path"]).rename(self.root / "replacement.txt")
+        entry.update(source_path="replacement.txt", path="replacement.txt")
+        self.assert_rejected("fixed imported path inventory")
+
+    def test_destination_mapping_change(self):
+        entry = self.entries[-1]
+        (self.root / entry["path"]).rename(self.root / "replacement.txt")
+        entry["path"] = "replacement.txt"
+        self.assert_rejected("fixed imported path inventory")
+
+    def test_unlisted_notebook(self):
+        self.notebook["cells"][0]["source"] = "Student ID: 12345678"
+        (self.root / "added.ipynb").write_text(json.dumps(self.notebook))
+        self.assert_rejected("student identifier")
+
+    def test_prose_student_id(self):
+        for location in ("source", "outputs", "metadata"):
+            with self.subTest(location=location):
+                cell = self.notebook["cells"][0]
+                cell.update(source="", outputs=[], metadata={})
+                cell[location] = "My student ID is 12345678"
+                self.refresh_notebook()
+                self.assert_rejected("student identifier")
+
+    def test_bare_equals_grading_key(self):
+        self.notebook["cells"][0]["source"] = "grader_api_key = synthetic-test-value"
+        self.refresh_notebook()
+        self.assert_rejected("grading key")
 
 
 if __name__ == "__main__":

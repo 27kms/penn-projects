@@ -10,7 +10,76 @@ from urllib.parse import unquote, urlsplit
 import zipfile
 
 
-EXPECTED_SOURCE_COUNT = 67
+EXPECTED_SOURCE_PATHS = frozenset({
+    ('Applied_Probability_Models_in_Marketing/Project1/Report.pdf', 'Applied_Probability_Models_in_Marketing/Project1/Report.pdf'),
+    ('Capstone/Hearst_Capstone_Paper.pdf', 'Capstone/Hearst_Capstone_Paper.pdf'),
+    ('Interactive_Fiction/README.md', 'Interactive_Fiction/README.md'),
+    ('Interactive_Fiction/Report.md', 'Interactive_Fiction/Report.md'),
+    ('Interactive_Fiction/__init__.py', 'Interactive_Fiction/__init__.py'),
+    ('Interactive_Fiction/action_castle.ipynb', 'Interactive_Fiction/action_castle.ipynb'),
+    ('Interactive_Fiction/actions/__init__.py', 'Interactive_Fiction/actions/__init__.py'),
+    ('Interactive_Fiction/actions/base.py', 'Interactive_Fiction/actions/base.py'),
+    ('Interactive_Fiction/actions/consume.py', 'Interactive_Fiction/actions/consume.py'),
+    ('Interactive_Fiction/actions/fight.py', 'Interactive_Fiction/actions/fight.py'),
+    ('Interactive_Fiction/actions/fish.py', 'Interactive_Fiction/actions/fish.py'),
+    ('Interactive_Fiction/actions/locations.py', 'Interactive_Fiction/actions/locations.py'),
+    ('Interactive_Fiction/actions/rose.py', 'Interactive_Fiction/actions/rose.py'),
+    ('Interactive_Fiction/actions/things.py', 'Interactive_Fiction/actions/things.py'),
+    ('Interactive_Fiction/blocks/__init__.py', 'Interactive_Fiction/blocks/__init__.py'),
+    ('Interactive_Fiction/blocks/base.py', 'Interactive_Fiction/blocks/base.py'),
+    ('Interactive_Fiction/blocks/doors.py', 'Interactive_Fiction/blocks/doors.py'),
+    ('Interactive_Fiction/games.py', 'Interactive_Fiction/games.py'),
+    ('Interactive_Fiction/hw2.ipynb', 'Interactive_Fiction/hw2.ipynb'),
+    ('Interactive_Fiction/parsing.py', 'Interactive_Fiction/parsing.py'),
+    ('Interactive_Fiction/things/__init__.py', 'Interactive_Fiction/things/__init__.py'),
+    ('Interactive_Fiction/things/base.py', 'Interactive_Fiction/things/base.py'),
+    ('Interactive_Fiction/things/characters.py', 'Interactive_Fiction/things/characters.py'),
+    ('Interactive_Fiction/things/items.py', 'Interactive_Fiction/things/items.py'),
+    ('Interactive_Fiction/things/locations.py', 'Interactive_Fiction/things/locations.py'),
+    ('Interactive_Fiction/viz.py', 'Interactive_Fiction/viz.py'),
+    ('March_Madness/2019_BB.ipynb', 'March_Madness/2019_BB.ipynb'),
+    ('March_Madness/BB_solver.py', 'March_Madness/BB_solver.py'),
+    ('March_Madness/Graphs/BarGraph1.html', 'March_Madness/Graphs/BarGraph1.html'),
+    ('March_Madness/Graphs/BarGraph2.html', 'March_Madness/Graphs/BarGraph2.html'),
+    ('March_Madness/Graphs/Heatmap.html', 'March_Madness/Graphs/Heatmap.html'),
+    ('March_Madness/Graphs/Scatterplot.html', 'March_Madness/Graphs/Scatterplot.html'),
+    ('March_Madness/Graphs/Scatterplot3D.html', 'March_Madness/Graphs/Scatterplot3D.html'),
+    ('March_Madness/Graphs/ScatterplotGeo.html', 'March_Madness/Graphs/ScatterplotGeo.html'),
+    ('March_Madness/Graphs/ScatterplotSeeds.html', 'March_Madness/Graphs/ScatterplotSeeds.html'),
+    ('March_Madness/NCAA_BB.ipynb', 'March_Madness/NCAA_BB.ipynb'),
+    ('March_Madness/README.md', 'March_Madness/README.md'),
+    ('March_Madness/Wrangling.ipynb', 'March_Madness/Wrangling.ipynb'),
+    ('NLP/Final_Project/Code/Project Notebook.ipynb', 'NLP/Final_Project/Code/Project Notebook.ipynb'),
+    ('NLP/Final_Project/Data/Locations.zip', 'NLP/Final_Project/Data/Locations.zip'),
+    ('NLP/Final_Project/Data/Names.zip', 'NLP/Final_Project/Data/Names.zip'),
+    ('NLP/Final_Project/Data/Stock_Gender_Images.zip', 'NLP/Final_Project/Data/Stock_Gender_Images.zip'),
+    ('NLP/Final_Project/Data/Tennis_Data.zip', 'NLP/Final_Project/Data/Tennis_Data.zip'),
+    ('NLP/Final_Project/Deliverables/Presentation.pdf', 'NLP/Final_Project/Deliverables/Presentation.pdf'),
+    ('NLP/Final_Project/Deliverables/Report.pdf', 'NLP/Final_Project/Deliverables/Report.pdf'),
+    ('NLP/Final_Project/README.md', 'NLP/Final_Project/README.md'),
+    ('NLP/HW2/Code/constants.py', 'NLP/HW2/Code/constants.py'),
+    ('NLP/HW2/Code/evaluate.py', 'NLP/HW2/Code/evaluate.py'),
+    ('NLP/HW2/Code/pos_tagger.py', 'NLP/HW2/Code/pos_tagger.py'),
+    ('NLP/HW2/Code/utils.py', 'NLP/HW2/Code/utils.py'),
+    ('NLP/HW2/Data/dev_x.csv', 'NLP/HW2/Data/dev_x.csv'),
+    ('NLP/HW2/Data/dev_y.csv', 'NLP/HW2/Data/dev_y.csv'),
+    ('NLP/HW2/Data/test_x.csv', 'NLP/HW2/Data/test_x.csv'),
+    ('NLP/HW2/Data/tokens_w_unk_4.csv', 'NLP/HW2/Data/tokens_w_unk_4.csv'),
+    ('NLP/HW2/Data/train_x.csv', 'NLP/HW2/Data/train_x.csv'),
+    ('NLP/HW2/Data/train_y.csv', 'NLP/HW2/Data/train_y.csv'),
+    ('NLP/HW2/README.md', 'NLP/HW2/README.md'),
+    ('NLP/HW2/Report.pdf', 'NLP/HW2/Report.pdf'),
+    ('NLP/HW2/requirements.txt', 'NLP/HW2/requirements.txt'),
+    ('NLP/HW3/Notebook.ipynb', 'NLP/HW3/Notebook.ipynb'),
+    ('NLP/HW3/Report.pdf', 'NLP/HW3/Report.pdf'),
+    ('NLP/HW4/Notebook.ipynb', 'NLP/HW4/Notebook.ipynb'),
+    ('README.md', 'docs/original-readme.md'),
+    ('WAF_Data_Challenge/Data/races.csv', 'WAF_Data_Challenge/Data/races.csv'),
+    ('WAF_Data_Challenge/Data/runs.csv', 'WAF_Data_Challenge/Data/runs.csv'),
+    ('WAF_Data_Challenge/Notebook.ipynb', 'WAF_Data_Challenge/Notebook.ipynb'),
+    ('WAF_Data_Challenge/Presentation.pdf', 'WAF_Data_Challenge/Presentation.pdf'),
+})
+EXPECTED_SOURCE_COUNT = len(EXPECTED_SOURCE_PATHS)
 
 
 def notebook_strings(value):
@@ -32,7 +101,7 @@ def notebook_strings(value):
 
 def check_notebook_privacy(notebook):
     student_id = re.compile(
-        r"\bstudent[ _]+id['\"]?[ \t]*(?::[ \t]*(?:int|str)[ \t]*)?[=:][^\r\n]*\b\d{8}\b",
+        r"\bstudent[ _]+id\b[^\r\n]*\b\d{8}\b",
         re.IGNORECASE,
     )
     grading_key = re.compile(
@@ -44,10 +113,8 @@ def check_notebook_privacy(notebook):
         if student_id.search(text):
             raise ValueError("unredacted student identifier in notebook")
         for match in grading_key.finditer(text):
-            # An unquoted Python assignment can read an environment variable.
-            # YAML values and quoted literals represent stored configuration.
             value = match.group("quoted")
-            if value is None and match.group("separator") == ":":
+            if value is None:
                 value = match.group("bare")
                 if value in {"null", "None", "~"}:
                     value = None
@@ -60,6 +127,9 @@ def check_archive(root):
     failures = []
     if len(manifest["files"]) != EXPECTED_SOURCE_COUNT:
         failures.append(f"Expected {EXPECTED_SOURCE_COUNT} imported files; found {len(manifest['files'])}.")
+    actual_paths = {(entry["source_path"], entry["path"]) for entry in manifest["files"]}
+    if actual_paths != EXPECTED_SOURCE_PATHS:
+        failures.append("Manifest differs from the fixed imported path inventory.")
     imported_paths = set()
     source_paths = set()
     for entry in manifest["files"]:
@@ -91,22 +161,7 @@ def check_archive(root):
         if hashlib.sha256(contents).hexdigest() != entry["sha256"]:
             failures.append(f"Hash differs from manifest: {relative}")
         try:
-            if path.suffix == ".ipynb":
-                notebook = json.loads(contents)
-                if notebook.get("nbformat") != 4:
-                    raise ValueError("expected notebook format 4")
-                if not isinstance(notebook.get("cells"), list):
-                    raise ValueError("missing notebook cell list")
-                check_notebook_privacy(notebook)
-                for index, cell in enumerate(notebook["cells"]):
-                    if cell.get("cell_type") not in {"markdown", "code", "raw"}:
-                        raise ValueError(f"invalid cell type at cell {index}")
-                    source = cell.get("source")
-                    if not isinstance(source, (str, list)):
-                        raise ValueError(f"missing source at cell {index}")
-                    if isinstance(source, list) and not all(isinstance(line, str) for line in source):
-                        raise ValueError(f"invalid source at cell {index}")
-            elif path.suffix == ".zip":
+            if path.suffix == ".zip":
                 with zipfile.ZipFile(path) as archive:
                     damaged = archive.testzip()
                     if damaged:
@@ -116,8 +171,30 @@ def check_archive(root):
         except (ValueError, KeyError, TypeError, zipfile.BadZipFile) as error:
             failures.append(f"Invalid asset {relative}: {error}")
 
-    python_files = sorted(root.rglob("*.py"))
-    python_files = [path for path in python_files if path.relative_to(root).parts[0] not in {".venv", "venv", ".git"}]
+    def repository_files(pattern):
+        return sorted(path for path in root.rglob(pattern)
+                      if not {".git", ".venv", "venv"}.intersection(path.relative_to(root).parts))
+
+    for path in repository_files("*.ipynb"):
+        try:
+            notebook = json.loads(path.read_bytes())
+            if notebook.get("nbformat") != 4:
+                raise ValueError("expected notebook format 4")
+            if not isinstance(notebook.get("cells"), list):
+                raise ValueError("missing notebook cell list")
+            check_notebook_privacy(notebook)
+            for index, cell in enumerate(notebook["cells"]):
+                if cell.get("cell_type") not in {"markdown", "code", "raw"}:
+                    raise ValueError(f"invalid cell type at cell {index}")
+                source = cell.get("source")
+                if not isinstance(source, (str, list)):
+                    raise ValueError(f"missing source at cell {index}")
+                if isinstance(source, list) and not all(isinstance(line, str) for line in source):
+                    raise ValueError(f"invalid source at cell {index}")
+        except (ValueError, KeyError, TypeError) as error:
+            failures.append(f"Invalid notebook {path.relative_to(root)}: {error}")
+
+    python_files = repository_files("*.py")
     for path in python_files:
         try:
             ast.parse(path.read_bytes(), filename=str(path.relative_to(root)))
