@@ -1,0 +1,473 @@
+{
+  "files": [
+    {
+      "source_path": "Applied_Probability_Models_in_Marketing/Project1/Report.pdf",
+      "path": "Applied_Probability_Models_in_Marketing/Project1/Report.pdf",
+      "source_sha256": "02f30bc4c6153257fb602dc2ea4d4b6de79815ba9e80f231f122e9d7bb13ef91",
+      "sha256": "02f30bc4c6153257fb602dc2ea4d4b6de79815ba9e80f231f122e9d7bb13ef91",
+      "bytes": 1562764
+    },
+    {
+      "source_path": "Capstone/Hearst_Capstone_Paper.pdf",
+      "path": "Capstone/Hearst_Capstone_Paper.pdf",
+      "source_sha256": "7a4a236da3dfb4e80a6e79e5e2c840272a3fc7c6387f99c74bfd2b01682e186f",
+      "sha256": "7a4a236da3dfb4e80a6e79e5e2c840272a3fc7c6387f99c74bfd2b01682e186f",
+      "bytes": 1131972
+    },
+    {
+      "source_path": "Interactive_Fiction/README.md",
+      "path": "Interactive_Fiction/README.md",
+      "source_sha256": "9082732ab36d47d7e982f11e00d8b6dabb7b3145954105e4637e4592f162f8d0",
+      "sha256": "9082732ab36d47d7e982f11e00d8b6dabb7b3145954105e4637e4592f162f8d0",
+      "bytes": 2841
+    },
+    {
+      "source_path": "Interactive_Fiction/Report.md",
+      "path": "Interactive_Fiction/Report.md",
+      "source_sha256": "7a99b00257281a61c2e6d20a840e8169ab77040a3c7bae6331ec47e0c5228682",
+      "sha256": "7a99b00257281a61c2e6d20a840e8169ab77040a3c7bae6331ec47e0c5228682",
+      "bytes": 11132
+    },
+    {
+      "source_path": "Interactive_Fiction/__init__.py",
+      "path": "Interactive_Fiction/__init__.py",
+      "source_sha256": "20c8e430ededc2143396e553a3c67aac4ec483ef54efdfcb18a31cb162ca0646",
+      "sha256": "20c8e430ededc2143396e553a3c67aac4ec483ef54efdfcb18a31cb162ca0646",
+      "bytes": 22
+    },
+    {
+      "source_path": "Interactive_Fiction/action_castle.ipynb",
+      "path": "Interactive_Fiction/action_castle.ipynb",
+      "source_sha256": "919f632c292a80ffa169fd4dffe2f80638d682b7dcb0dd57861f123932182d50",
+      "sha256": "919f632c292a80ffa169fd4dffe2f80638d682b7dcb0dd57861f123932182d50",
+      "bytes": 3049063
+    },
+    {
+      "source_path": "Interactive_Fiction/actions/__init__.py",
+      "path": "Interactive_Fiction/actions/__init__.py",
+      "source_sha256": "861792430400b678245ea9375bfa8221adf42c8e930c77d9cafd0c7f91fe81ec",
+      "sha256": "861792430400b678245ea9375bfa8221adf42c8e930c77d9cafd0c7f91fe81ec",
+      "bytes": 521
+    },
+    {
+      "source_path": "Interactive_Fiction/actions/base.py",
+      "path": "Interactive_Fiction/actions/base.py",
+      "source_sha256": "7812f65cb9c9c3f7b2d9dfcf5035dda94d1594d39b95d4d7d71973110b0ddc73",
+      "sha256": "7812f65cb9c9c3f7b2d9dfcf5035dda94d1594d39b95d4d7d71973110b0ddc73",
+      "bytes": 9449
+    },
+    {
+      "source_path": "Interactive_Fiction/actions/consume.py",
+      "path": "Interactive_Fiction/actions/consume.py",
+      "source_sha256": "0f5ed970a2966bceeb734d3f2fd8b61aa0d37345d2521794eb091f84f05a5948",
+      "sha256": "0f5ed970a2966bceeb734d3f2fd8b61aa0d37345d2521794eb091f84f05a5948",
+      "bytes": 6336
+    },
+    {
+      "source_path": "Interactive_Fiction/actions/fight.py",
+      "path": "Interactive_Fiction/actions/fight.py",
+      "source_sha256": "ffadb75c4cf2dcc048d5ed488cd979d14d89722fbecc8ed784f611b3c5426b31",
+      "sha256": "ffadb75c4cf2dcc048d5ed488cd979d14d89722fbecc8ed784f611b3c5426b31",
+      "bytes": 4489
+    },
+    {
+      "source_path": "Interactive_Fiction/actions/fish.py",
+      "path": "Interactive_Fiction/actions/fish.py",
+      "source_sha256": "4bdb7cb2d76abbe581e299eef9909ba96ea72f118eec3363348f877ac14ec9eb",
+      "sha256": "4bdb7cb2d76abbe581e299eef9909ba96ea72f118eec3363348f877ac14ec9eb",
+      "bytes": 2593
+    },
+    {
+      "source_path": "Interactive_Fiction/actions/locations.py",
+      "path": "Interactive_Fiction/actions/locations.py",
+      "source_sha256": "b4bfdc749992171b632ca54e7b8b5127d7cf5a3eeb86ff4d1e7710c9913d72c7",
+      "sha256": "b4bfdc749992171b632ca54e7b8b5127d7cf5a3eeb86ff4d1e7710c9913d72c7",
+      "bytes": 3312
+    },
+    {
+      "source_path": "Interactive_Fiction/actions/rose.py",
+      "path": "Interactive_Fiction/actions/rose.py",
+      "source_sha256": "4d344f8d360eaf924b8f9cc3f9e4884702b88c6611a228c4666bbc7add31ecf1",
+      "sha256": "4d344f8d360eaf924b8f9cc3f9e4884702b88c6611a228c4666bbc7add31ecf1",
+      "bytes": 4657
+    },
+    {
+      "source_path": "Interactive_Fiction/actions/things.py",
+      "path": "Interactive_Fiction/actions/things.py",
+      "source_sha256": "e80f554171342f2a6b870b16c104e118a39b2ef02e15b9c9b6538c3195de3d48",
+      "sha256": "e80f554171342f2a6b870b16c104e118a39b2ef02e15b9c9b6538c3195de3d48",
+      "bytes": 9321
+    },
+    {
+      "source_path": "Interactive_Fiction/blocks/__init__.py",
+      "path": "Interactive_Fiction/blocks/__init__.py",
+      "source_sha256": "a34d584995268791697360b159b14f02889ef0b7d5909613b4472fc7cca31449",
+      "sha256": "a34d584995268791697360b159b14f02889ef0b7d5909613b4472fc7cca31449",
+      "bytes": 88
+    },
+    {
+      "source_path": "Interactive_Fiction/blocks/base.py",
+      "path": "Interactive_Fiction/blocks/base.py",
+      "source_sha256": "4b9a768aa20aec5643695889b1fe5e26daecb97ba2914ee53d28bda66c05180d",
+      "sha256": "4b9a768aa20aec5643695889b1fe5e26daecb97ba2914ee53d28bda66c05180d",
+      "bytes": 1032
+    },
+    {
+      "source_path": "Interactive_Fiction/blocks/doors.py",
+      "path": "Interactive_Fiction/blocks/doors.py",
+      "source_sha256": "25e5cfa3f9fa19539a23163bd259475e7ad1bc19df8c5f66b2b519d6ce873bf6",
+      "sha256": "25e5cfa3f9fa19539a23163bd259475e7ad1bc19df8c5f66b2b519d6ce873bf6",
+      "bytes": 1892
+    },
+    {
+      "source_path": "Interactive_Fiction/games.py",
+      "path": "Interactive_Fiction/games.py",
+      "source_sha256": "18df1b20787d17f99fa3a388173f682e1dfc64df6cfb13dc14e18d318ab70dc0",
+      "sha256": "18df1b20787d17f99fa3a388173f682e1dfc64df6cfb13dc14e18d318ab70dc0",
+      "bytes": 16405
+    },
+    {
+      "source_path": "Interactive_Fiction/hw2.ipynb",
+      "path": "Interactive_Fiction/hw2.ipynb",
+      "source_sha256": "7b717ebbf168444da818e8ac25e59cde731fcf177c95d9f79954bca4f8e79694",
+      "sha256": "7b717ebbf168444da818e8ac25e59cde731fcf177c95d9f79954bca4f8e79694",
+      "bytes": 157243
+    },
+    {
+      "source_path": "Interactive_Fiction/parsing.py",
+      "path": "Interactive_Fiction/parsing.py",
+      "source_sha256": "dabd3da18786f5dcd2c4576e611620ecbf157b1727faeff7a5027ae2eb133ae2",
+      "sha256": "dabd3da18786f5dcd2c4576e611620ecbf157b1727faeff7a5027ae2eb133ae2",
+      "bytes": 10185
+    },
+    {
+      "source_path": "Interactive_Fiction/things/__init__.py",
+      "path": "Interactive_Fiction/things/__init__.py",
+      "source_sha256": "b7b0244b15470ab9350a2c689ccaa6012f22fa35614b78c4badf3243dcd5ad82",
+      "sha256": "b7b0244b15470ab9350a2c689ccaa6012f22fa35614b78c4badf3243dcd5ad82",
+      "bytes": 160
+    },
+    {
+      "source_path": "Interactive_Fiction/things/base.py",
+      "path": "Interactive_Fiction/things/base.py",
+      "source_sha256": "c79e4d8c4319af81d2a429f30aa5aaf8684fd401b019e26629a587de6589b275",
+      "sha256": "c79e4d8c4319af81d2a429f30aa5aaf8684fd401b019e26629a587de6589b275",
+      "bytes": 2779
+    },
+    {
+      "source_path": "Interactive_Fiction/things/characters.py",
+      "path": "Interactive_Fiction/things/characters.py",
+      "source_sha256": "6a212e5601b3f94d6cf880d5a4abdca0483cdb71c52c8ea68ca4a8dd7be1a229",
+      "sha256": "6a212e5601b3f94d6cf880d5a4abdca0483cdb71c52c8ea68ca4a8dd7be1a229",
+      "bytes": 3364
+    },
+    {
+      "source_path": "Interactive_Fiction/things/items.py",
+      "path": "Interactive_Fiction/things/items.py",
+      "source_sha256": "a17cd742b458f6440f1c754d461d554ecb53c06a2b74046896c7993f2fbf679b",
+      "sha256": "a17cd742b458f6440f1c754d461d554ecb53c06a2b74046896c7993f2fbf679b",
+      "bytes": 2013
+    },
+    {
+      "source_path": "Interactive_Fiction/things/locations.py",
+      "path": "Interactive_Fiction/things/locations.py",
+      "source_sha256": "178a1d57390078cf6c7fbb9face114f37989deb52ae07c31864b6021e96b87f6",
+      "sha256": "178a1d57390078cf6c7fbb9face114f37989deb52ae07c31864b6021e96b87f6",
+      "bytes": 8589
+    },
+    {
+      "source_path": "Interactive_Fiction/viz.py",
+      "path": "Interactive_Fiction/viz.py",
+      "source_sha256": "c9b80dd71d4ce42c2bfda8657155b160d510e396133397bf5c9b3b680296c3f3",
+      "sha256": "c9b80dd71d4ce42c2bfda8657155b160d510e396133397bf5c9b3b680296c3f3",
+      "bytes": 4011
+    },
+    {
+      "source_path": "March_Madness/2019_BB.ipynb",
+      "path": "March_Madness/2019_BB.ipynb",
+      "source_sha256": "d16b5ff12647d13b8ebf266958e591bf2c0ead1e9d8fa2d4e8320736768a52c4",
+      "sha256": "d16b5ff12647d13b8ebf266958e591bf2c0ead1e9d8fa2d4e8320736768a52c4",
+      "bytes": 148850
+    },
+    {
+      "source_path": "March_Madness/BB_solver.py",
+      "path": "March_Madness/BB_solver.py",
+      "source_sha256": "f55d6942a07a4d98d85df44c45cc534c755c243a4cb0c4a6d353534569a190b1",
+      "sha256": "f55d6942a07a4d98d85df44c45cc534c755c243a4cb0c4a6d353534569a190b1",
+      "bytes": 2785
+    },
+    {
+      "source_path": "March_Madness/Graphs/BarGraph1.html",
+      "path": "March_Madness/Graphs/BarGraph1.html",
+      "source_sha256": "7cde3d06bd51e21c3507f49f9ab95aeed348fb052141a3e31b8e24d894f7cbf7",
+      "sha256": "7cde3d06bd51e21c3507f49f9ab95aeed348fb052141a3e31b8e24d894f7cbf7",
+      "bytes": 3673793
+    },
+    {
+      "source_path": "March_Madness/Graphs/BarGraph2.html",
+      "path": "March_Madness/Graphs/BarGraph2.html",
+      "source_sha256": "845e8d9f5b2573dd8a560cc9553cdd0e1198bbeec74cdceab9badfce48d77cec",
+      "sha256": "845e8d9f5b2573dd8a560cc9553cdd0e1198bbeec74cdceab9badfce48d77cec",
+      "bytes": 3673201
+    },
+    {
+      "source_path": "March_Madness/Graphs/Heatmap.html",
+      "path": "March_Madness/Graphs/Heatmap.html",
+      "source_sha256": "cbd9a7898835b9564e7c3c03e3fcd96f199312999cf51dbf10d5f37cc5ae3093",
+      "sha256": "cbd9a7898835b9564e7c3c03e3fcd96f199312999cf51dbf10d5f37cc5ae3093",
+      "bytes": 3719037
+    },
+    {
+      "source_path": "March_Madness/Graphs/Scatterplot.html",
+      "path": "March_Madness/Graphs/Scatterplot.html",
+      "source_sha256": "8b4411f3f3aa36b385e99193befd8fb24cd092a00e2409231bcd481b15404785",
+      "sha256": "8b4411f3f3aa36b385e99193befd8fb24cd092a00e2409231bcd481b15404785",
+      "bytes": 3690940
+    },
+    {
+      "source_path": "March_Madness/Graphs/Scatterplot3D.html",
+      "path": "March_Madness/Graphs/Scatterplot3D.html",
+      "source_sha256": "209887fdcb7ac6e0f95e7d35d07a673ca6ceb8e129c636ae15b096a153698509",
+      "sha256": "209887fdcb7ac6e0f95e7d35d07a673ca6ceb8e129c636ae15b096a153698509",
+      "bytes": 3675035
+    },
+    {
+      "source_path": "March_Madness/Graphs/ScatterplotGeo.html",
+      "path": "March_Madness/Graphs/ScatterplotGeo.html",
+      "source_sha256": "5c90e1b1171c1684c1fcb6f125b4de3d7db8dc34a90bfb5240be29ca695892c2",
+      "sha256": "5c90e1b1171c1684c1fcb6f125b4de3d7db8dc34a90bfb5240be29ca695892c2",
+      "bytes": 5238506
+    },
+    {
+      "source_path": "March_Madness/Graphs/ScatterplotSeeds.html",
+      "path": "March_Madness/Graphs/ScatterplotSeeds.html",
+      "source_sha256": "7bf59b7040cbe25b31d62c4b283ade2506de65e277581d3785a8b2454f4b125e",
+      "sha256": "7bf59b7040cbe25b31d62c4b283ade2506de65e277581d3785a8b2454f4b125e",
+      "bytes": 3675686
+    },
+    {
+      "source_path": "March_Madness/NCAA_BB.ipynb",
+      "path": "March_Madness/NCAA_BB.ipynb",
+      "source_sha256": "41cc25d53e4ee4d0248b6dff0ea7224975af208fbdbb184cbd59e747b4c3fc18",
+      "sha256": "41cc25d53e4ee4d0248b6dff0ea7224975af208fbdbb184cbd59e747b4c3fc18",
+      "bytes": 56457
+    },
+    {
+      "source_path": "March_Madness/README.md",
+      "path": "March_Madness/README.md",
+      "source_sha256": "10b55469f456812bb5ad21d15cb16f8d6feaffa44cdbc2262fc08524443553ce",
+      "sha256": "10b55469f456812bb5ad21d15cb16f8d6feaffa44cdbc2262fc08524443553ce",
+      "bytes": 188
+    },
+    {
+      "source_path": "March_Madness/Wrangling.ipynb",
+      "path": "March_Madness/Wrangling.ipynb",
+      "source_sha256": "387439bf49ef569fef46ad2ddea558344b01529014933c5c46ff887f1620b46f",
+      "sha256": "387439bf49ef569fef46ad2ddea558344b01529014933c5c46ff887f1620b46f",
+      "bytes": 2864576
+    },
+    {
+      "source_path": "NLP/Final_Project/Code/Project Notebook.ipynb",
+      "path": "NLP/Final_Project/Code/Project Notebook.ipynb",
+      "source_sha256": "bed0fc5dd4577818e257cb8f314435a9b91d39be29f9893feb16c12b128bdf18",
+      "sha256": "bed0fc5dd4577818e257cb8f314435a9b91d39be29f9893feb16c12b128bdf18",
+      "bytes": 8991196
+    },
+    {
+      "source_path": "NLP/Final_Project/Data/Locations.zip",
+      "path": "NLP/Final_Project/Data/Locations.zip",
+      "source_sha256": "49464499dfb806efda043e6563ed5aee343bc1958f518a2e58b2ce57bb092936",
+      "sha256": "49464499dfb806efda043e6563ed5aee343bc1958f518a2e58b2ce57bb092936",
+      "bytes": 262938
+    },
+    {
+      "source_path": "NLP/Final_Project/Data/Names.zip",
+      "path": "NLP/Final_Project/Data/Names.zip",
+      "source_sha256": "be4f01a73beb7e94472641f7f55539ab86c52aa3886aa67720fd1857cb8ac78c",
+      "sha256": "be4f01a73beb7e94472641f7f55539ab86c52aa3886aa67720fd1857cb8ac78c",
+      "bytes": 10877895
+    },
+    {
+      "source_path": "NLP/Final_Project/Data/Stock_Gender_Images.zip",
+      "path": "NLP/Final_Project/Data/Stock_Gender_Images.zip",
+      "source_sha256": "d37dc4a1de56ab435042e35596254abe31410579b535e9c424654e222b87be00",
+      "sha256": "d37dc4a1de56ab435042e35596254abe31410579b535e9c424654e222b87be00",
+      "bytes": 24622
+    },
+    {
+      "source_path": "NLP/Final_Project/Data/Tennis_Data.zip",
+      "path": "NLP/Final_Project/Data/Tennis_Data.zip",
+      "source_sha256": "558e1d538c324a242c48a96d4138abea8bfe1a2066e37abbd1487ae20a4b6d78",
+      "sha256": "558e1d538c324a242c48a96d4138abea8bfe1a2066e37abbd1487ae20a4b6d78",
+      "bytes": 15942592
+    },
+    {
+      "source_path": "NLP/Final_Project/Deliverables/Presentation.pdf",
+      "path": "NLP/Final_Project/Deliverables/Presentation.pdf",
+      "source_sha256": "0e2081a48a2c7d86e5876be490b40c0055bb77dcb58967abf73e19fa1220b9fb",
+      "sha256": "0e2081a48a2c7d86e5876be490b40c0055bb77dcb58967abf73e19fa1220b9fb",
+      "bytes": 3314275
+    },
+    {
+      "source_path": "NLP/Final_Project/Deliverables/Report.pdf",
+      "path": "NLP/Final_Project/Deliverables/Report.pdf",
+      "source_sha256": "441720e813cef61a88b8535433d7d218a917cd59cd18b65c79bec6c5e704139e",
+      "sha256": "441720e813cef61a88b8535433d7d218a917cd59cd18b65c79bec6c5e704139e",
+      "bytes": 940644
+    },
+    {
+      "source_path": "NLP/Final_Project/README.md",
+      "path": "NLP/Final_Project/README.md",
+      "source_sha256": "8ed46cd9be9b78d6ac914cd371308e5b72a2632e3c1d22fd4e73504644c75ab5",
+      "sha256": "8ed46cd9be9b78d6ac914cd371308e5b72a2632e3c1d22fd4e73504644c75ab5",
+      "bytes": 1000
+    },
+    {
+      "source_path": "NLP/HW2/Code/constants.py",
+      "path": "NLP/HW2/Code/constants.py",
+      "source_sha256": "5880971c0d31430fca629ef5865b9ce7bfeba2aa2129e99550a65c536529c146",
+      "sha256": "5880971c0d31430fca629ef5865b9ce7bfeba2aa2129e99550a65c536529c146",
+      "bytes": 574
+    },
+    {
+      "source_path": "NLP/HW2/Code/evaluate.py",
+      "path": "NLP/HW2/Code/evaluate.py",
+      "source_sha256": "2f69ad29f709834bca935effaeef2ef557b6f41f309ae95acfe504e335aeb756",
+      "sha256": "2f69ad29f709834bca935effaeef2ef557b6f41f309ae95acfe504e335aeb756",
+      "bytes": 1305
+    },
+    {
+      "source_path": "NLP/HW2/Code/pos_tagger.py",
+      "path": "NLP/HW2/Code/pos_tagger.py",
+      "source_sha256": "dbe34cf5c61342243acb3a41a77e8b889082830e71482f8a533facfc06c77106",
+      "sha256": "dbe34cf5c61342243acb3a41a77e8b889082830e71482f8a533facfc06c77106",
+      "bytes": 50809
+    },
+    {
+      "source_path": "NLP/HW2/Code/utils.py",
+      "path": "NLP/HW2/Code/utils.py",
+      "source_sha256": "a11b73e6d21301d7c42d2e376237b409aa1161367b7ec19ad3899780bc788c96",
+      "sha256": "a11b73e6d21301d7c42d2e376237b409aa1161367b7ec19ad3899780bc788c96",
+      "bytes": 4473
+    },
+    {
+      "source_path": "NLP/HW2/Data/dev_x.csv",
+      "path": "NLP/HW2/Data/dev_x.csv",
+      "source_sha256": "9568795176a28b210cc5d8ddaacaec39de9606f48cb06d643e2bccd9c0f85e72",
+      "sha256": "9568795176a28b210cc5d8ddaacaec39de9606f48cb06d643e2bccd9c0f85e72",
+      "bytes": 3404004
+    },
+    {
+      "source_path": "NLP/HW2/Data/dev_y.csv",
+      "path": "NLP/HW2/Data/dev_y.csv",
+      "source_sha256": "0de4259106eadfe3c419d7f1aba359149e453b7cae7be208840ecaec9a34ce33",
+      "sha256": "0de4259106eadfe3c419d7f1aba359149e453b7cae7be208840ecaec9a34ce33",
+      "bytes": 2857291
+    },
+    {
+      "source_path": "NLP/HW2/Data/test_x.csv",
+      "path": "NLP/HW2/Data/test_x.csv",
+      "source_sha256": "77d47e830f9bd99590faf3153bf7eb45c151583540a4050df21038c133bae790",
+      "sha256": "77d47e830f9bd99590faf3153bf7eb45c151583540a4050df21038c133bae790",
+      "bytes": 3303114
+    },
+    {
+      "source_path": "NLP/HW2/Data/tokens_w_unk_4.csv",
+      "path": "NLP/HW2/Data/tokens_w_unk_4.csv",
+      "source_sha256": "5b3957104ed28dbc468742f9af69a8ce35ed6d85102636c9e64bb9942788a281",
+      "sha256": "5b3957104ed28dbc468742f9af69a8ce35ed6d85102636c9e64bb9942788a281",
+      "bytes": 8544197
+    },
+    {
+      "source_path": "NLP/HW2/Data/train_x.csv",
+      "path": "NLP/HW2/Data/train_x.csv",
+      "source_sha256": "a0e297aa7e35e945b4a4842b056f58fd474b4e6168c13437ba104be06a521318",
+      "sha256": "a0e297aa7e35e945b4a4842b056f58fd474b4e6168c13437ba104be06a521318",
+      "bytes": 9968711
+    },
+    {
+      "source_path": "NLP/HW2/Data/train_y.csv",
+      "path": "NLP/HW2/Data/train_y.csv",
+      "source_sha256": "429b55a74a6011cf8a38aa734553a5e7666970efce200970b70164bfc33e8c50",
+      "sha256": "429b55a74a6011cf8a38aa734553a5e7666970efce200970b70164bfc33e8c50",
+      "bytes": 8400054
+    },
+    {
+      "source_path": "NLP/HW2/README.md",
+      "path": "NLP/HW2/README.md",
+      "source_sha256": "392e7ec8166d2290e3c4399f0363af71715e9ef5ad4d4273ee9c556a3d41b208",
+      "sha256": "392e7ec8166d2290e3c4399f0363af71715e9ef5ad4d4273ee9c556a3d41b208",
+      "bytes": 3637
+    },
+    {
+      "source_path": "NLP/HW2/Report.pdf",
+      "path": "NLP/HW2/Report.pdf",
+      "source_sha256": "ad07734f7694f0cd3c199800e519b6fdd3a60e5f52b11c6572a927a68fd2840b",
+      "sha256": "ad07734f7694f0cd3c199800e519b6fdd3a60e5f52b11c6572a927a68fd2840b",
+      "bytes": 196945
+    },
+    {
+      "source_path": "NLP/HW2/requirements.txt",
+      "path": "NLP/HW2/requirements.txt",
+      "source_sha256": "a3aa7444d4463b3d20865c0a03c2be280f86d0d1c32c5ad7f5202ab46ac0da2e",
+      "sha256": "a3aa7444d4463b3d20865c0a03c2be280f86d0d1c32c5ad7f5202ab46ac0da2e",
+      "bytes": 77
+    },
+    {
+      "source_path": "NLP/HW3/Notebook.ipynb",
+      "path": "NLP/HW3/Notebook.ipynb",
+      "source_sha256": "11dc54ca01af79484284b5419b6376c47f69ac38e99ab3e0a4d0d7e5b40ab96e",
+      "sha256": "27141d213b57449196fe23f5d6e71acc1c35c378be8f4e31de0960243759a992",
+      "bytes": 130131
+    },
+    {
+      "source_path": "NLP/HW3/Report.pdf",
+      "path": "NLP/HW3/Report.pdf",
+      "source_sha256": "3ad3fa0665cc2631bf72e50f5a1c675766edb608665b3cccbf487d5d3a2edf4a",
+      "sha256": "3ad3fa0665cc2631bf72e50f5a1c675766edb608665b3cccbf487d5d3a2edf4a",
+      "bytes": 215085
+    },
+    {
+      "source_path": "NLP/HW4/Notebook.ipynb",
+      "path": "NLP/HW4/Notebook.ipynb",
+      "source_sha256": "78242e322497dd56df82860e93d037e803ee496d833d93a50a1a61fe4009ab3b",
+      "sha256": "d1cc47a78cc5c7e798cad3d3983b7d434a45a46b777670621365ac0ecff31fc9",
+      "bytes": 585129
+    },
+    {
+      "source_path": "README.md",
+      "path": "docs/original-readme.md",
+      "source_sha256": "d49c5e64dbd9239c1cab356edfeeee51fd25871e3bdb020e00951417ce9f2ceb",
+      "sha256": "d49c5e64dbd9239c1cab356edfeeee51fd25871e3bdb020e00951417ce9f2ceb",
+      "bytes": 741
+    },
+    {
+      "source_path": "WAF_Data_Challenge/Data/races.csv",
+      "path": "WAF_Data_Challenge/Data/races.csv",
+      "source_sha256": "0b97ef70acbe5f09a2d4ed3808824675d539546b26901b7c2c7ae2fa6de8b054",
+      "sha256": "0b97ef70acbe5f09a2d4ed3808824675d539546b26901b7c2c7ae2fa6de8b054",
+      "bytes": 896095
+    },
+    {
+      "source_path": "WAF_Data_Challenge/Data/runs.csv",
+      "path": "WAF_Data_Challenge/Data/runs.csv",
+      "source_sha256": "12bc844ae8a41246adb4d6a765cb2af2b893a277b3bf37464620b2f886e2d590",
+      "sha256": "12bc844ae8a41246adb4d6a765cb2af2b893a277b3bf37464620b2f886e2d590",
+      "bytes": 10564287
+    },
+    {
+      "source_path": "WAF_Data_Challenge/Notebook.ipynb",
+      "path": "WAF_Data_Challenge/Notebook.ipynb",
+      "source_sha256": "23d7ff67ac16e63e6038ae7654cdc700473a515f3253a5ab970e82881b770ad7",
+      "sha256": "23d7ff67ac16e63e6038ae7654cdc700473a515f3253a5ab970e82881b770ad7",
+      "bytes": 1920551
+    },
+    {
+      "source_path": "WAF_Data_Challenge/Presentation.pdf",
+      "path": "WAF_Data_Challenge/Presentation.pdf",
+      "source_sha256": "a6c74988d1a8724271ca71818664c1ad607b80bfb97e6e0590d07ea84f95648a",
+      "sha256": "a6c74988d1a8724271ca71818664c1ad607b80bfb97e6e0590d07ea84f95648a",
+      "bytes": 626173
+    }
+  ]
+}

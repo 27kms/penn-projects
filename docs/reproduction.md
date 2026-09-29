@@ -35,4 +35,4 @@ From the repository root, run:
 python3 scripts/check_archive.py
 ```
 
-The command checks archive integrity without importing project modules, running notebook cells, contacting external services, or training models. Hash failures indicate that an imported file changed. Review the change before updating its manifest entry.
+The command checks archive integrity without importing project modules, running notebook cells, contacting external services, or training models. Hash failures indicate that an imported file changed. An intentional archive revision requires content review and updates to both the approved baseline and manifest.

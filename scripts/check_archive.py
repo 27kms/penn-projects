@@ -1,6 +1,7 @@
-"""Validate this archive with Python's standard library, without running project code."""
+"""Verify a preserved archive against its independently reviewed import baseline."""
 
 import ast
+from collections import Counter
 import hashlib
 import json
 from pathlib import Path
@@ -10,195 +11,75 @@ from urllib.parse import unquote, urlsplit
 import zipfile
 
 
-EXPECTED_SOURCE_PATHS = frozenset({
-    ('Applied_Probability_Models_in_Marketing/Project1/Report.pdf', 'Applied_Probability_Models_in_Marketing/Project1/Report.pdf'),
-    ('Capstone/Hearst_Capstone_Paper.pdf', 'Capstone/Hearst_Capstone_Paper.pdf'),
-    ('Interactive_Fiction/README.md', 'Interactive_Fiction/README.md'),
-    ('Interactive_Fiction/Report.md', 'Interactive_Fiction/Report.md'),
-    ('Interactive_Fiction/__init__.py', 'Interactive_Fiction/__init__.py'),
-    ('Interactive_Fiction/action_castle.ipynb', 'Interactive_Fiction/action_castle.ipynb'),
-    ('Interactive_Fiction/actions/__init__.py', 'Interactive_Fiction/actions/__init__.py'),
-    ('Interactive_Fiction/actions/base.py', 'Interactive_Fiction/actions/base.py'),
-    ('Interactive_Fiction/actions/consume.py', 'Interactive_Fiction/actions/consume.py'),
-    ('Interactive_Fiction/actions/fight.py', 'Interactive_Fiction/actions/fight.py'),
-    ('Interactive_Fiction/actions/fish.py', 'Interactive_Fiction/actions/fish.py'),
-    ('Interactive_Fiction/actions/locations.py', 'Interactive_Fiction/actions/locations.py'),
-    ('Interactive_Fiction/actions/rose.py', 'Interactive_Fiction/actions/rose.py'),
-    ('Interactive_Fiction/actions/things.py', 'Interactive_Fiction/actions/things.py'),
-    ('Interactive_Fiction/blocks/__init__.py', 'Interactive_Fiction/blocks/__init__.py'),
-    ('Interactive_Fiction/blocks/base.py', 'Interactive_Fiction/blocks/base.py'),
-    ('Interactive_Fiction/blocks/doors.py', 'Interactive_Fiction/blocks/doors.py'),
-    ('Interactive_Fiction/games.py', 'Interactive_Fiction/games.py'),
-    ('Interactive_Fiction/hw2.ipynb', 'Interactive_Fiction/hw2.ipynb'),
-    ('Interactive_Fiction/parsing.py', 'Interactive_Fiction/parsing.py'),
-    ('Interactive_Fiction/things/__init__.py', 'Interactive_Fiction/things/__init__.py'),
-    ('Interactive_Fiction/things/base.py', 'Interactive_Fiction/things/base.py'),
-    ('Interactive_Fiction/things/characters.py', 'Interactive_Fiction/things/characters.py'),
-    ('Interactive_Fiction/things/items.py', 'Interactive_Fiction/things/items.py'),
-    ('Interactive_Fiction/things/locations.py', 'Interactive_Fiction/things/locations.py'),
-    ('Interactive_Fiction/viz.py', 'Interactive_Fiction/viz.py'),
-    ('March_Madness/2019_BB.ipynb', 'March_Madness/2019_BB.ipynb'),
-    ('March_Madness/BB_solver.py', 'March_Madness/BB_solver.py'),
-    ('March_Madness/Graphs/BarGraph1.html', 'March_Madness/Graphs/BarGraph1.html'),
-    ('March_Madness/Graphs/BarGraph2.html', 'March_Madness/Graphs/BarGraph2.html'),
-    ('March_Madness/Graphs/Heatmap.html', 'March_Madness/Graphs/Heatmap.html'),
-    ('March_Madness/Graphs/Scatterplot.html', 'March_Madness/Graphs/Scatterplot.html'),
-    ('March_Madness/Graphs/Scatterplot3D.html', 'March_Madness/Graphs/Scatterplot3D.html'),
-    ('March_Madness/Graphs/ScatterplotGeo.html', 'March_Madness/Graphs/ScatterplotGeo.html'),
-    ('March_Madness/Graphs/ScatterplotSeeds.html', 'March_Madness/Graphs/ScatterplotSeeds.html'),
-    ('March_Madness/NCAA_BB.ipynb', 'March_Madness/NCAA_BB.ipynb'),
-    ('March_Madness/README.md', 'March_Madness/README.md'),
-    ('March_Madness/Wrangling.ipynb', 'March_Madness/Wrangling.ipynb'),
-    ('NLP/Final_Project/Code/Project Notebook.ipynb', 'NLP/Final_Project/Code/Project Notebook.ipynb'),
-    ('NLP/Final_Project/Data/Locations.zip', 'NLP/Final_Project/Data/Locations.zip'),
-    ('NLP/Final_Project/Data/Names.zip', 'NLP/Final_Project/Data/Names.zip'),
-    ('NLP/Final_Project/Data/Stock_Gender_Images.zip', 'NLP/Final_Project/Data/Stock_Gender_Images.zip'),
-    ('NLP/Final_Project/Data/Tennis_Data.zip', 'NLP/Final_Project/Data/Tennis_Data.zip'),
-    ('NLP/Final_Project/Deliverables/Presentation.pdf', 'NLP/Final_Project/Deliverables/Presentation.pdf'),
-    ('NLP/Final_Project/Deliverables/Report.pdf', 'NLP/Final_Project/Deliverables/Report.pdf'),
-    ('NLP/Final_Project/README.md', 'NLP/Final_Project/README.md'),
-    ('NLP/HW2/Code/constants.py', 'NLP/HW2/Code/constants.py'),
-    ('NLP/HW2/Code/evaluate.py', 'NLP/HW2/Code/evaluate.py'),
-    ('NLP/HW2/Code/pos_tagger.py', 'NLP/HW2/Code/pos_tagger.py'),
-    ('NLP/HW2/Code/utils.py', 'NLP/HW2/Code/utils.py'),
-    ('NLP/HW2/Data/dev_x.csv', 'NLP/HW2/Data/dev_x.csv'),
-    ('NLP/HW2/Data/dev_y.csv', 'NLP/HW2/Data/dev_y.csv'),
-    ('NLP/HW2/Data/test_x.csv', 'NLP/HW2/Data/test_x.csv'),
-    ('NLP/HW2/Data/tokens_w_unk_4.csv', 'NLP/HW2/Data/tokens_w_unk_4.csv'),
-    ('NLP/HW2/Data/train_x.csv', 'NLP/HW2/Data/train_x.csv'),
-    ('NLP/HW2/Data/train_y.csv', 'NLP/HW2/Data/train_y.csv'),
-    ('NLP/HW2/README.md', 'NLP/HW2/README.md'),
-    ('NLP/HW2/Report.pdf', 'NLP/HW2/Report.pdf'),
-    ('NLP/HW2/requirements.txt', 'NLP/HW2/requirements.txt'),
-    ('NLP/HW3/Notebook.ipynb', 'NLP/HW3/Notebook.ipynb'),
-    ('NLP/HW3/Report.pdf', 'NLP/HW3/Report.pdf'),
-    ('NLP/HW4/Notebook.ipynb', 'NLP/HW4/Notebook.ipynb'),
-    ('README.md', 'docs/original-readme.md'),
-    ('WAF_Data_Challenge/Data/races.csv', 'WAF_Data_Challenge/Data/races.csv'),
-    ('WAF_Data_Challenge/Data/runs.csv', 'WAF_Data_Challenge/Data/runs.csv'),
-    ('WAF_Data_Challenge/Notebook.ipynb', 'WAF_Data_Challenge/Notebook.ipynb'),
-    ('WAF_Data_Challenge/Presentation.pdf', 'WAF_Data_Challenge/Presentation.pdf'),
-})
-EXPECTED_SOURCE_COUNT = len(EXPECTED_SOURCE_PATHS)
+BASELINE_PATH = Path(__file__).with_name("approved-imports.json")
+FIELDS = ("source_path", "path", "source_sha256", "sha256", "bytes")
 
 
-def notebook_strings(value):
-    """Read text from sources, outputs, and metadata, including split text arrays."""
-    if isinstance(value, str):
-        yield value
-    elif isinstance(value, list):
-        if all(isinstance(item, str) for item in value):
-            yield "".join(value)
-        else:
-            for item in value:
-                yield from notebook_strings(item)
-    elif isinstance(value, dict):
-        for key, item in value.items():
-            if key.lower() in {"student_id", "grader_api_key"} and isinstance(item, (str, int)):
-                yield f"{key}: {item}"
-            yield from notebook_strings(item)
-
-
-def check_notebook_privacy(notebook):
-    student_id = re.compile(
-        r"\bstudent[ _-]+id\b[^\r\n]*\b\d{8}\b",
-        re.IGNORECASE,
-    )
-    grading_key = re.compile(
-        r"\bgrader_api_key['\"]?[ \t]*[:=][ \t]*(?P<value>[^\r\n]*)",
-        re.IGNORECASE,
-    )
-    empty_key = re.compile(r"(?:''|\"\"|null|None|~)?[ \t]*(?:#.*)?")
-    for text in notebook_strings(notebook):
-        if student_id.search(text):
-            raise ValueError("unredacted student identifier in notebook")
-        for match in grading_key.finditer(text):
-            if not empty_key.fullmatch(match.group("value")):
-                raise ValueError("embedded grading key in notebook")
-
-
-def check_archive(root):
-    manifest = json.loads((root / "docs/source-manifest.json").read_text())
+def check_archive(root, approved=None):
+    if approved is None:
+        approved = json.loads(BASELINE_PATH.read_text())["files"]
+    manifest = json.loads((root / "docs/source-manifest.json").read_text())["files"]
     failures = []
-    if len(manifest["files"]) != EXPECTED_SOURCE_COUNT:
-        failures.append(f"Expected {EXPECTED_SOURCE_COUNT} imported files; found {len(manifest['files'])}.")
-    actual_paths = {(entry["source_path"], entry["path"]) for entry in manifest["files"]}
-    if actual_paths != EXPECTED_SOURCE_PATHS:
-        failures.append("Manifest differs from the fixed imported path inventory.")
-    imported_paths = set()
-    source_paths = set()
-    for entry in manifest["files"]:
+    expected = Counter(tuple(entry[field] for field in FIELDS) for entry in approved)
+    actual = Counter(tuple(entry[field] for field in FIELDS) for entry in manifest)
+    if actual != expected:
+        failures.append("Manifest differs from the approved import baseline.")
+    for entry in manifest:
+        unchanged = entry["change"].strip().lower().rstrip(".") == "unchanged"
+        if not entry["change"].strip() or unchanged != (entry["source_sha256"] == entry["sha256"]):
+            failures.append(f"Provenance claim contradicts recorded hashes: {entry['path']}")
+
+    for entry in approved:
         relative = entry["path"]
         path = root / relative
-        if relative in imported_paths:
-            failures.append(f"Duplicate manifest path: {relative}")
-        imported_paths.add(relative)
-        if entry["source_path"] in source_paths:
-            failures.append(f"Duplicate source path: {entry['source_path']}")
-        source_paths.add(entry["source_path"])
-        source_hash = entry["source_sha256"]
-        if not re.fullmatch(r"[0-9a-f]{64}", source_hash):
-            failures.append(f"Invalid source hash: {relative}")
-        change = entry["change"].strip()
-        claims_unchanged = change.lower().rstrip(".") == "unchanged"
-        hashes_match = source_hash == entry["sha256"]
-        if not change or claims_unchanged != hashes_match:
-            failures.append(f"Provenance claim contradicts source and imported hashes: {relative}")
         if not path.resolve().is_relative_to(root.resolve()):
-            failures.append(f"Manifest path outside repository: {relative}")
+            failures.append(f"Imported path outside repository: {relative}")
             continue
         if not path.is_file():
             failures.append(f"Missing imported file: {relative}")
             continue
         contents = path.read_bytes()
-        if len(contents) != entry["bytes"]:
-            failures.append(f"Size differs from manifest: {relative}")
-        if hashlib.sha256(contents).hexdigest() != entry["sha256"]:
-            failures.append(f"Hash differs from manifest: {relative}")
+        if len(contents) != entry["bytes"] or hashlib.sha256(contents).hexdigest() != entry["sha256"]:
+            failures.append(f"Imported bytes differ from approved baseline: {relative}")
         try:
-            if path.suffix == ".zip":
+            if path.suffix.lower() == ".ipynb":
+                notebook = json.loads(contents)
+                if not isinstance(notebook, dict) or notebook.get("nbformat") != 4:
+                    raise ValueError("expected notebook format 4")
+                if not isinstance(notebook.get("cells"), list):
+                    raise ValueError("missing notebook cell list")
+                for index, cell in enumerate(notebook["cells"]):
+                    if not isinstance(cell, dict) or cell.get("cell_type") not in {"markdown", "code", "raw"}:
+                        raise ValueError(f"invalid cell type at cell {index}")
+                    source = cell.get("source")
+                    if not isinstance(source, (str, list)) or (
+                        isinstance(source, list) and not all(isinstance(line, str) for line in source)
+                    ):
+                        raise ValueError(f"invalid source at cell {index}")
+            elif path.suffix.lower() == ".zip":
                 with zipfile.ZipFile(path) as archive:
                     damaged = archive.testzip()
                     if damaged:
                         raise ValueError(f"damaged ZIP member: {damaged}")
-            elif path.suffix == ".pdf" and not contents.startswith(b"%PDF-"):
+            elif path.suffix.lower() == ".pdf" and not contents.startswith(b"%PDF-"):
                 raise ValueError("missing PDF header")
         except (ValueError, KeyError, TypeError, zipfile.BadZipFile) as error:
             failures.append(f"Invalid asset {relative}: {error}")
 
-    def repository_files(pattern):
-        return sorted(path for path in root.rglob(pattern)
-                      if not {".git", ".venv", "venv"}.intersection(path.relative_to(root).parts))
+    files = sorted(path for path in root.rglob("*") if path.is_file()
+                   and not {".git", ".venv", "venv", ".ipynb_checkpoints"}.intersection(path.relative_to(root).parts))
+    approved_notebooks = {entry["path"] for entry in approved if Path(entry["path"]).suffix.lower() == ".ipynb"}
+    for path in files:
+        relative = str(path.relative_to(root))
+        if path.suffix.lower() == ".ipynb" and relative not in approved_notebooks:
+            failures.append(f"Notebook outside approved archive: {relative}")
+        if path.suffix == ".py":
+            try:
+                ast.parse(path.read_bytes(), filename=relative)
+            except SyntaxError as error:
+                failures.append(f"Python syntax: {relative}: {error}")
 
-    for path in repository_files("*"):
-        if path.suffix.lower() != ".ipynb" or not path.is_file():
-            continue
-        try:
-            notebook = json.loads(path.read_bytes())
-            if notebook.get("nbformat") != 4:
-                raise ValueError("expected notebook format 4")
-            if not isinstance(notebook.get("cells"), list):
-                raise ValueError("missing notebook cell list")
-            check_notebook_privacy(notebook)
-            for index, cell in enumerate(notebook["cells"]):
-                if cell.get("cell_type") not in {"markdown", "code", "raw"}:
-                    raise ValueError(f"invalid cell type at cell {index}")
-                source = cell.get("source")
-                if not isinstance(source, (str, list)):
-                    raise ValueError(f"missing source at cell {index}")
-                if isinstance(source, list) and not all(isinstance(line, str) for line in source):
-                    raise ValueError(f"invalid source at cell {index}")
-        except (ValueError, KeyError, TypeError) as error:
-            failures.append(f"Invalid notebook {path.relative_to(root)}: {error}")
-
-    python_files = repository_files("*.py")
-    for path in python_files:
-        try:
-            ast.parse(path.read_bytes(), filename=str(path.relative_to(root)))
-        except SyntaxError as error:
-            failures.append(f"Python syntax: {path.relative_to(root)}: {error}")
-
-    # Original course documentation may point to files outside the recovered archive.
+    # Historical documentation may point outside the recovered download.
     guides = [root / "README.md", *(root / "docs").glob("*.md")]
     for guide in guides:
         if guide.name == "original-readme.md":
@@ -209,11 +90,10 @@ def check_archive(root):
                 continue
             if not (guide.parent / unquote(url.path)).exists():
                 failures.append(f"Broken local link in {guide.relative_to(root)}: {target}")
-
     if failures:
         print("\n".join(failures), file=sys.stderr)
         return 1
-    print(f"Archive checks passed: {len(imported_paths)} imported files, {len(python_files)} Python files, and {len(guides) - 1} guides.")
+    print(f"Archive checks passed: {len(approved)} approved imported files.")
     return 0
 
 

@@ -21,7 +21,7 @@ The source manifest records both original and imported hashes. Unchanged files h
 
 The new overview and reproduction notes help readers navigate the archive. Ignore rules exclude local environments, caches, credentials, and generated grader configuration. Editor settings apply consistent defaults to future edits.
 
-The archive-check script uses only Python's standard library. It enforces the 67-file inventory and checks that change descriptions agree with the original and imported hashes. It also checks notebook sources, saved outputs, and metadata for the grading identifiers and key formats used in these assignments.
+The archive-check script uses only Python's standard library. It verifies the 67 preserved files against the approved import baseline and checks that change descriptions agree with the original and imported hashes.
 
 Synthetic regression tests cover those safeguards. Run them with `python3 -m unittest discover -s scripts -p 'test_*.py'`.
 
@@ -31,8 +31,10 @@ The GitHub Actions workflow runs both checks using tools already present on the 
 
 Git commits for this import are attributed to `27kms`. The academic work includes course starter code, team deliverables, and cited third-party data. Their existing credits remain in place. This import does not assign a new license to the collection.
 
-## Validation scope
+## Preservation contract
 
-The checker compares manifest source and destination paths with an independent fixed inventory in the script. It verifies imported bytes against the manifest and checks that change descriptions agree with its source and imported hashes. The manifest records provenance; it is not an independent authentication of the original files.
+`scripts/approved-imports.json` fixes the reviewed source paths, destination paths, original hashes, imported hashes, and sizes. It was established by comparing the import with the downloaded files. The checker requires the manifest to match this independent baseline and imported bytes to match the approved hashes. Editing the manifest alone cannot authorize an archive change.
 
-All repository notebooks, including additions outside the import manifest, receive structure checks and checks for eight-digit values following a student-ID label and nonempty `grader_api_key` values. Local `.git`, `.venv`, and `venv` directories are excluded. Grading-key fields must be empty or use `null`, `None`, or `~`; runtime expressions are not supported in this static archive. These checks cover the known assignment fields, not every possible secret format.
+These are preserved snapshots. Any change to an imported notebook, including restoring a redacted value in any syntax or location, fails its hash check. Additional notebooks are rejected, including case variants of `.ipynb`. Local `.git`, `.venv`, `venv`, and `.ipynb_checkpoints` directories are excluded. Documentation and maintenance scripts may still be edited.
+
+The checker does not assess arbitrary notebook content for secrets. An intentional future archive revision requires a separately reviewed baseline update and a fresh content review. The baseline is a repository invariant, not protection against someone deliberately changing both the baseline and validator.
