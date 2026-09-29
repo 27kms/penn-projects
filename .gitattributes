@@ -1,0 +1,9 @@
+# Preserve historical file bytes, including line endings.
+* -text
+*.py diff=python
+*.pdf binary
+*.zip binary
+
+# Keep data and exported chart libraries out of GitHub's language summary.
+**/Data/** linguist-vendored=true
+March_Madness/Graphs/*.html linguist-generated=true
