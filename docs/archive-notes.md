@@ -21,7 +21,11 @@ The source manifest records both original and imported hashes. Unchanged files h
 
 The new overview and reproduction notes help readers navigate the archive. Ignore rules exclude local environments, caches, credentials, and generated grader configuration. Editor settings apply consistent defaults to future edits.
 
-The archive-check script uses only Python's standard library. Its GitHub Actions workflow uses tools already present on the runner and downloads only this repository's source. It does not install dependencies or third-party actions.
+The archive-check script uses only Python's standard library. It enforces the 67-file inventory and checks that change descriptions agree with the original and imported hashes. It also checks notebook sources, saved outputs, and metadata for the grading identifiers and key formats used in these assignments.
+
+Synthetic regression tests cover those safeguards. Run them with `python3 -m unittest discover -s scripts -p 'test_*.py'`.
+
+The GitHub Actions workflow runs both checks using tools already present on the runner and downloads only this repository's source. It does not install dependencies or third-party actions.
 
 ## Ownership and reuse
 

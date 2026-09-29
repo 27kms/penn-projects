@@ -10,16 +10,75 @@ from urllib.parse import unquote, urlsplit
 import zipfile
 
 
+EXPECTED_SOURCE_COUNT = 67
+
+
+def notebook_strings(value):
+    """Read text from sources, outputs, and metadata, including split text arrays."""
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, list):
+        if all(isinstance(item, str) for item in value):
+            yield "".join(value)
+        else:
+            for item in value:
+                yield from notebook_strings(item)
+    elif isinstance(value, dict):
+        for key, item in value.items():
+            if key.lower() in {"student_id", "grader_api_key"} and isinstance(item, (str, int)):
+                yield f"{key}: {item}"
+            yield from notebook_strings(item)
+
+
+def check_notebook_privacy(notebook):
+    student_id = re.compile(
+        r"\bstudent[ _]+id['\"]?[ \t]*(?::[ \t]*(?:int|str)[ \t]*)?[=:][^\r\n]*\b\d{8}\b",
+        re.IGNORECASE,
+    )
+    grading_key = re.compile(
+        r"\bgrader_api_key['\"]?[ \t]*(?P<separator>[:=])[ \t]*"
+        r"(?:['\"](?P<quoted>[^'\"\r\n]*)['\"]|(?P<bare>[^\s#'\"\r\n]+))",
+        re.IGNORECASE,
+    )
+    for text in notebook_strings(notebook):
+        if student_id.search(text):
+            raise ValueError("unredacted student identifier in notebook")
+        for match in grading_key.finditer(text):
+            # An unquoted Python assignment can read an environment variable.
+            # YAML values and quoted literals represent stored configuration.
+            value = match.group("quoted")
+            if value is None and match.group("separator") == ":":
+                value = match.group("bare")
+                if value in {"null", "None", "~"}:
+                    value = None
+            if value:
+                raise ValueError("embedded grading key in notebook")
+
+
 def check_archive(root):
     manifest = json.loads((root / "docs/source-manifest.json").read_text())
     failures = []
+    if len(manifest["files"]) != EXPECTED_SOURCE_COUNT:
+        failures.append(f"Expected {EXPECTED_SOURCE_COUNT} imported files; found {len(manifest['files'])}.")
     imported_paths = set()
+    source_paths = set()
     for entry in manifest["files"]:
         relative = entry["path"]
         path = root / relative
         if relative in imported_paths:
             failures.append(f"Duplicate manifest path: {relative}")
         imported_paths.add(relative)
+        if entry["source_path"] in source_paths:
+            failures.append(f"Duplicate source path: {entry['source_path']}")
+        source_paths.add(entry["source_path"])
+        source_hash = entry["source_sha256"]
+        if not re.fullmatch(r"[0-9a-f]{64}", source_hash):
+            failures.append(f"Invalid source hash: {relative}")
+        change = entry["change"].strip()
+        claims_unchanged = change.lower().rstrip(".") == "unchanged"
+        hashes_match = source_hash == entry["sha256"]
+        if not change or claims_unchanged != hashes_match:
+            failures.append(f"Provenance claim contradicts source and imported hashes: {relative}")
         if not path.resolve().is_relative_to(root.resolve()):
             failures.append(f"Manifest path outside repository: {relative}")
             continue
@@ -38,8 +97,7 @@ def check_archive(root):
                     raise ValueError("expected notebook format 4")
                 if not isinstance(notebook.get("cells"), list):
                     raise ValueError("missing notebook cell list")
-                if re.search(r"Student ID:\s*\d{8}", json.dumps(notebook)):
-                    raise ValueError("unredacted student identifier in notebook")
+                check_notebook_privacy(notebook)
                 for index, cell in enumerate(notebook["cells"]):
                     if cell.get("cell_type") not in {"markdown", "code", "raw"}:
                         raise ValueError(f"invalid cell type at cell {index}")
@@ -48,9 +106,6 @@ def check_archive(root):
                         raise ValueError(f"missing source at cell {index}")
                     if isinstance(source, list) and not all(isinstance(line, str) for line in source):
                         raise ValueError(f"invalid source at cell {index}")
-                    source_text = "".join(source) if isinstance(source, list) else source
-                    if re.search(r"grader_api_key:\s*['\"][^'\"\n]+['\"]", source_text):
-                        raise ValueError(f"embedded grading key at cell {index}")
             elif path.suffix == ".zip":
                 with zipfile.ZipFile(path) as archive:
                     damaged = archive.testzip()

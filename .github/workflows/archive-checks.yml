@@ -26,4 +26,6 @@ jobs:
           tar -xzf source.tar.gz --strip-components=1 -C source
       - name: Check archive integrity and documentation
         working-directory: source
-        run: python3 scripts/check_archive.py
+        run: |
+          python3 scripts/check_archive.py
+          python3 -m unittest discover -s scripts -p 'test_*.py'
