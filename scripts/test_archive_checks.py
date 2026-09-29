@@ -179,6 +179,28 @@ class ArchiveChecksTest(unittest.TestCase):
         self.refresh_notebook()
         self.assert_rejected("grading key")
 
+    def test_triple_quoted_grading_keys(self):
+        for quotes in (chr(34) * 3, chr(39) * 3):
+            for value in ("synthetic-test-value", "\nsynthetic-test-value\n"):
+                with self.subTest(quotes=quotes, value=value):
+                    self.notebook["cells"][0]["source"] = "grader_api_key = " + quotes + value + quotes
+                    self.refresh_notebook()
+                    self.assert_rejected("grading key")
+
+    def test_hyphenated_student_label(self):
+        self.notebook["cells"][0]["source"] = "Student-ID: 12345678"
+        self.refresh_notebook()
+        self.assert_rejected("student identifier")
+
+    def test_case_variant_notebook_extensions(self):
+        self.notebook["cells"][0]["source"] = "Student ID: 12345678"
+        for suffix in (".IPYNB", ".IpYnB"):
+            with self.subTest(suffix=suffix):
+                path = self.root / ("added" + suffix)
+                path.write_text(json.dumps(self.notebook))
+                self.assert_rejected("student identifier")
+                path.unlink()
+
 
 if __name__ == "__main__":
     unittest.main()

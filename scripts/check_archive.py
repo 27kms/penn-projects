@@ -101,24 +101,19 @@ def notebook_strings(value):
 
 def check_notebook_privacy(notebook):
     student_id = re.compile(
-        r"\bstudent[ _]+id\b[^\r\n]*\b\d{8}\b",
+        r"\bstudent[ _-]+id\b[^\r\n]*\b\d{8}\b",
         re.IGNORECASE,
     )
     grading_key = re.compile(
-        r"\bgrader_api_key['\"]?[ \t]*(?P<separator>[:=])[ \t]*"
-        r"(?:['\"](?P<quoted>[^'\"\r\n]*)['\"]|(?P<bare>[^\s#'\"\r\n]+))",
+        r"\bgrader_api_key['\"]?[ \t]*[:=][ \t]*(?P<value>[^\r\n]*)",
         re.IGNORECASE,
     )
+    empty_key = re.compile(r"(?:''|\"\"|null|None|~)?[ \t]*(?:#.*)?")
     for text in notebook_strings(notebook):
         if student_id.search(text):
             raise ValueError("unredacted student identifier in notebook")
         for match in grading_key.finditer(text):
-            value = match.group("quoted")
-            if value is None:
-                value = match.group("bare")
-                if value in {"null", "None", "~"}:
-                    value = None
-            if value:
+            if not empty_key.fullmatch(match.group("value")):
                 raise ValueError("embedded grading key in notebook")
 
 
@@ -175,7 +170,9 @@ def check_archive(root):
         return sorted(path for path in root.rglob(pattern)
                       if not {".git", ".venv", "venv"}.intersection(path.relative_to(root).parts))
 
-    for path in repository_files("*.ipynb"):
+    for path in repository_files("*"):
+        if path.suffix.lower() != ".ipynb" or not path.is_file():
+            continue
         try:
             notebook = json.loads(path.read_bytes())
             if notebook.get("nbformat") != 4:
